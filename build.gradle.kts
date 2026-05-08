@@ -36,7 +36,7 @@ repositories {
 
 group = "net.runelite"
 version = "2.7.6-SNAPSHOT"
-description = "Augment Launcher"
+description = "Velaris Launcher"
 
 dependencies {
     implementation(libs.slf4j.api)
@@ -89,7 +89,7 @@ tasks {
         filesMatching("**/*.properties") {
             val props = if (project.findProperty("RUNELITE_BUILD") as? String == "runelite")
                 arrayOf(
-                    "runelite_net" to "augmentps.io",
+                    "runelite_net" to "velaris.ps",
                     "runelite_128" to "runelite_128.png",
                     "runelite_splash" to "runelite_splash.png"
                 )

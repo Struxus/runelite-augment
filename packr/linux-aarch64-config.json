@@ -1,6 +1,6 @@
 {
   "classPath": [
-    "Augment.jar"
+    "Velaris.jar"
   ],
   "mainClass": "net.runelite.launcher.Launcher",
   "vmArgs": [

@@ -3,7 +3,7 @@
 set -e
 
 echo Launcher sha256sum
-sha256sum build/libs/Augment.jar
+sha256sum build/libs/Velaris.jar
 
 cmake -S liblauncher -B liblauncher/build64 -A x64
 cmake --build liblauncher/build64 --config Release
@@ -24,18 +24,18 @@ fi
 
 echo "$WIN64_CHKSUM win64_jre.zip" | sha256sum -c
 
-cp native/build-x64/src/Release/Augment.exe build/win-x64/
-cp build/libs/Augment.jar build/win-x64/
+cp native/build-x64/src/Release/Velaris.exe build/win-x64/
+cp build/libs/Velaris.jar build/win-x64/
 cp packr/win-x64-config.json build/win-x64/config.json
 cp liblauncher/build64/Release/launcher_amd64.dll build/win-x64/
 
 unzip win64_jre.zip
 mv jdk-$WIN64_VERSION-jre build/win-x64/jre
 
-echo Augment.exe 64bit sha256sum
-sha256sum build/win-x64/Augment.exe
+echo Velaris.exe 64bit sha256sum
+sha256sum build/win-x64/Velaris.exe
 
-dumpbin //HEADERS build/win-x64/Augment.exe
+dumpbin //HEADERS build/win-x64/Velaris.exe
 
 # We use the filtered iss file
 iscc build/filtered-resources/runelite.iss

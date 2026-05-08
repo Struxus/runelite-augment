@@ -11,9 +11,9 @@ BEGIN
     BEGIN
         BLOCK "040904B0"
         BEGIN
-            VALUE "FileDescription",  "Augment"
-            VALUE "OriginalFilename", "Augment.exe"
-            VALUE "ProductName",      "Augment Launcher"
+            VALUE "FileDescription",  "Velaris"
+            VALUE "OriginalFilename", "Velaris.exe"
+            VALUE "ProductName",      "Velaris Launcher"
         END
     END
 

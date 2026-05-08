@@ -58,9 +58,9 @@ jobs:
       with:
         name: windows
         path: |
-          AugmentSetup.exe
-          AugmentSetup32.exe
-          AugmentSetupAArch64.exe
+          VelarisSetup.exe
+          VelarisSetup32.exe
+          VelarisSetupAArch64.exe
         if-no-files-found: error
   linux:
     runs-on: ubuntu-24.04
@@ -83,7 +83,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: jar
-        path: build/libs/Augment.jar
+        path: build/libs/Velaris.jar
         if-no-files-found: error
     - uses: actions/upload-artifact@v4
       with:
@@ -92,8 +92,8 @@ jobs:
           appimagetool-x86_64.AppImage
           runtime-x86_64
           runtime-aarch64
-          Augment.AppImage
-          Augment-aarch64.AppImage
+          Velaris.AppImage
+          Velaris-aarch64.AppImage
         if-no-files-found: error
   macos:
     runs-on: macos-13
@@ -128,13 +128,13 @@ jobs:
       run: ./build-osx-aarch64.sh --build --dmg
     # tar app to keep permissions correct
     - name: tar app
-      run: tar -cf app.tar build/macos-x64/Augment.app build/macos-aarch64/Augment.app build-osx-x64.sh build-osx-aarch64.sh osx/signing.entitlements
+      run: tar -cf app.tar build/macos-x64/Velaris.app build/macos-aarch64/Velaris.app build-osx-x64.sh build-osx-aarch64.sh osx/signing.entitlements
     - uses: actions/upload-artifact@v4
       with:
         name: macos-dmg
         path: |
-          Augment-x64.dmg
-          Augment-aarch64.dmg
+          Velaris-x64.dmg
+          Velaris-aarch64.dmg
         if-no-files-found: error
     - uses: actions/upload-artifact@v4
       with:

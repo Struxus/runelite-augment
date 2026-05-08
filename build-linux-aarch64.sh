@@ -3,7 +3,7 @@
 set -e
 
 echo Launcher sha256sum
-sha256sum build/libs/Augment.jar
+sha256sum build/libs/Velaris.jar
 
 pushd native
 cmake -DCMAKE_TOOLCHAIN_FILE=arm64-linux-gcc.cmake -B build-aarch64 .
@@ -26,10 +26,10 @@ echo "$LINUX_AARCH64_CHKSUM linux_aarch64_jre.tar.gz" | sha256sum -c
 # Note: Host umask may have checked out this directory with g/o permissions blank
 chmod -R u=rwX,go=rX appimage
 # ...ditto for the build process
-chmod 644 build/libs/Augment.jar
+chmod 644 build/libs/Velaris.jar
 
-cp native/build-aarch64/src/Augment build/linux-aarch64/
-cp build/libs/Augment.jar build/linux-aarch64/
+cp native/build-aarch64/src/Velaris build/linux-aarch64/
+cp build/libs/Velaris.jar build/linux-aarch64/
 cp packr/linux-aarch64-config.json build/linux-aarch64/config.json
 cp build/filtered-resources/runelite.desktop build/linux-aarch64/
 cp appimage/runelite.png build/linux-aarch64/
@@ -43,11 +43,11 @@ pushd build/linux-aarch64
 mkdir -p jre/lib/amd64/server/
 ln -s ../../server/libjvm.so jre/lib/amd64/server/ # packr looks for libjvm at this hardcoded path
 
-# Symlink AppRun -> Augment
-ln -s Augment AppRun
+# Symlink AppRun -> Velaris
+ln -s Velaris AppRun
 
-# Ensure Augment is executable to all users
-chmod 755 Augment
+# Ensure Velaris is executable to all users
+chmod 755 Velaris
 popd
 
 curl -z appimagetool-x86_64.AppImage -o appimagetool-x86_64.AppImage -L https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
@@ -58,4 +58,4 @@ chmod +x appimagetool-x86_64.AppImage
 ./appimagetool-x86_64.AppImage \
 	--runtime-file runtime-aarch64 \
 	build/linux-aarch64/ \
-	Augment-aarch64.AppImage
+	Velaris-aarch64.AppImage

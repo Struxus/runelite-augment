@@ -2,11 +2,11 @@
 
 set -e
 
-APPBASE="build/macos-aarch64/Augment.app"
+APPBASE="build/macos-aarch64/Velaris.app"
 
 build() {
     echo Launcher sha256sum
-    shasum -a 256 build/libs/Augment.jar
+    shasum -a 256 build/libs/Velaris.jar
 
     pushd native
     cmake -DCMAKE_OSX_ARCHITECTURES=arm64 -B build-aarch64 .
@@ -26,8 +26,8 @@ build() {
 
     mkdir -p $APPBASE/Contents/{MacOS,Resources}
 
-    cp native/build-aarch64/src/Augment $APPBASE/Contents/MacOS/
-    cp build/libs/Augment.jar $APPBASE/Contents/Resources/
+    cp native/build-aarch64/src/Velaris $APPBASE/Contents/MacOS/
+    cp build/libs/Velaris.jar $APPBASE/Contents/Resources/
     cp packr/macos-aarch64-config.json $APPBASE/Contents/Resources/config.json
     cp build/filtered-resources/Info.plist $APPBASE/Contents/
     cp osx/runelite.icns $APPBASE/Contents/Resources/icons.icns
@@ -36,12 +36,12 @@ build() {
     mkdir $APPBASE/Contents/Resources/jre
     mv jdk-$MAC_AARCH64_VERSION-jre/Contents/Home/* $APPBASE/Contents/Resources/jre
 
-    echo Setting world execute permissions on Augment
+    echo Setting world execute permissions on Velaris
     pushd $APPBASE
-    chmod g+x,o+x Contents/MacOS/Augment
+    chmod g+x,o+x Contents/MacOS/Velaris
     popd
 
-    otool -l $APPBASE/Contents/MacOS/Augment
+    otool -l $APPBASE/Contents/MacOS/Velaris
 }
 
 dmg() {
@@ -50,24 +50,24 @@ dmg() {
 
     # create-dmg exits with an error code due to no code signing, but is still okay
     create-dmg $APPBASE . || true
-    mv Augment\ *.dmg Augment-aarch64.dmg
+    mv Velaris\ *.dmg Velaris-aarch64.dmg
 
     # dump for CI
-    hdiutil imageinfo Augment-aarch64.dmg
+    hdiutil imageinfo Velaris-aarch64.dmg
 
-    if ! hdiutil imageinfo Augment-aarch64.dmg | grep -q "Format: ULFO" ; then
+    if ! hdiutil imageinfo Velaris-aarch64.dmg | grep -q "Format: ULFO" ; then
         echo Format of dmg is not ULFO
         exit 1
     fi
 
-    if ! hdiutil imageinfo Augment-aarch64.dmg | grep -q "Apple_HFS" ; then
+    if ! hdiutil imageinfo Velaris-aarch64.dmg | grep -q "Apple_HFS" ; then
         echo Filesystem of dmg is not Apple_HFS
         exit 1
     fi
 
     # Notarize app
-    if xcrun notarytool submit Augment-aarch64.dmg --wait --keychain-profile "AC_PASSWORD" ; then
-        xcrun stapler staple Augment-aarch64.dmg
+    if xcrun notarytool submit Velaris-aarch64.dmg --wait --keychain-profile "AC_PASSWORD" ; then
+        xcrun stapler staple Velaris-aarch64.dmg
     fi
 }
 
